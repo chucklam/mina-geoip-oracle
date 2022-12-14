@@ -28,10 +28,7 @@ const getCountryCode = async (ip: string): Promise<string> => {
   return countryCode;
 };
 
-app.get('/ip/:ip', async (req: Request, res: Response) => {
-  const { ip } = req.params;
-  console.log(`You requested geolocation for IP: ${ip}`);
-
+const getSignedCountryCode = async (ip: string) => {
   const countryCode = await getCountryCode(ip);
 
   const ipField = CircuitString.fromString(ip);
@@ -41,11 +38,18 @@ app.get('/ip/:ip', async (req: Request, res: Response) => {
     ipField.toFields().concat(countryCodeField.toFields())
   );
 
-  res.json({
+  return ({
     data: { ip, countryCode },
     signature,
     publicKey,
   });
+}
+
+app.get('/ip/:ip', async (req: Request, res: Response) => {
+  const { ip } = req.params;
+
+  const result = await getSignedCountryCode(ip);
+  res.json(result);
 });
 
 isReady.then(() => {
