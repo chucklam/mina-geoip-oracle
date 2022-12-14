@@ -43,7 +43,9 @@ const getSignedCountryCode = async (ip: string) => {
     signature,
     publicKey,
   });
-}
+};
+
+export { getCountryCode, getSignedCountryCode };
 
 app.get('/ip/:ip', async (req: Request, res: Response) => {
   const { ip } = req.params;
