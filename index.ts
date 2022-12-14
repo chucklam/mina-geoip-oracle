@@ -6,12 +6,24 @@ const port = process.env.PORT || 3000;
 
 const app: Express = express();
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
+const getCountryCode = async (ip: string): Promise<string> => {
+  const response = await fetch(`http://ip-api.com/json/${ip}`);
+  const json = await response.json();
+  console.log(json);
 
-app.get('/ip/:ip', (req: Request, res: Response) => {
-  res.send(`You requested geolocation for IP: ${req.params.ip}`);
+  // Could also get "region", "lat", "lon", "timezone", etc.
+  const { countryCode } = json;
+
+  return countryCode;
+}
+
+app.get('/ip/:ip', async (req: Request, res: Response) => {
+  const { ip } = req.params;
+  console.log(`You requested geolocation for IP: ${ip}`);
+
+  const countryCode = await getCountryCode(ip);
+
+  res.json({ countryCode });
 });
 
 app.listen(port, () => {
