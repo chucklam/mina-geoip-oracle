@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import { isReady, PrivateKey, PublicKey, Field, Signature } from 'snarkyjs';
+import { isReady, PrivateKey, PublicKey, CircuitString, Signature } from 'snarkyjs';
 import dotenv from 'dotenv';
 import { exit } from 'process';
 dotenv.config();
@@ -34,7 +34,18 @@ app.get('/ip/:ip', async (req: Request, res: Response) => {
 
   const countryCode = await getCountryCode(ip);
 
-  res.json({ countryCode });
+  const ipField = CircuitString.fromString(ip);
+  const countryCodeField = CircuitString.fromString(countryCode);
+  const signature = Signature.create(
+    privateKey,
+    ipField.toFields().concat(countryCodeField.toFields())
+  );
+
+  res.json({
+    data: { ip, countryCode },
+    signature,
+    publicKey,
+  });
 });
 
 isReady.then(() => {
