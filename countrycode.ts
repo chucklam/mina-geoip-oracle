@@ -22,8 +22,8 @@ const getSignedCountryCode = async (ip: string, privateKey: PrivateKey) => {
 
   return ({
     data: { ip, countryCode },
-    signature,
-    publicKey: privateKey.toPublicKey(),
+    signature: signature.toJSON(),
+    publicKey: privateKey.toPublicKey().toBase58(),
   });
 };
 

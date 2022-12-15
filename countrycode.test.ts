@@ -51,8 +51,8 @@ describe('Unit tests', () => {
       const signed = await getSignedCountryCode('24.48.0.1', privateKey);
       const { data } = signed;
 
-      const publicKey = PublicKey.fromBase58(signed.publicKey.toBase58());
-      const signature = Signature.fromJSON(signed.signature.toJSON());
+      const publicKey = PublicKey.fromBase58(signed.publicKey);
+      const signature = Signature.fromJSON(signed.signature);
       const verified = signature.verify(
         publicKey,
         CircuitString.fromString(data.ip).toFields().concat(
@@ -74,8 +74,8 @@ describe('Unit tests', () => {
       const signed = await getSignedCountryCode('116.84.110.176', privateKey);
       const { data } = signed;
 
-      const publicKey = PublicKey.fromBase58(signed.publicKey.toBase58());
-      const signature = Signature.fromJSON(signed.signature.toJSON());
+      const publicKey = PublicKey.fromBase58(signed.publicKey);
+      const signature = Signature.fromJSON(signed.signature);
       const verified = signature.verify(
         publicKey,
         CircuitString.fromString(data.ip).toFields().concat(
