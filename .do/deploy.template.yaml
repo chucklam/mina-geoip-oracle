@@ -1,0 +1,12 @@
+spec:
+  name: mina-geoip-oracle
+  services:
+  - environment_slug: node-js
+    name: api
+    git:
+      branch: main
+      repo_clone_url: https://github.com/chucklam/mina-geoip-oracle.git
+    envs:
+    - key: PRIVATE_KEY
+      value: ""
+      type: SECRET
