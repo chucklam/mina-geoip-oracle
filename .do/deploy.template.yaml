@@ -6,6 +6,7 @@ spec:
     git:
       branch: main
       repo_clone_url: https://github.com/chucklam/mina-geoip-oracle.git
+    build_command: npm run build
     envs:
     - key: PRIVATE_KEY
       type: SECRET
