@@ -8,5 +8,4 @@ spec:
       repo_clone_url: https://github.com/chucklam/mina-geoip-oracle.git
     envs:
     - key: PRIVATE_KEY
-      value: ""
       type: SECRET
