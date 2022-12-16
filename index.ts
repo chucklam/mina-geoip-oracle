@@ -31,6 +31,8 @@ isReady.then(() => {
   privateKey = PrivateKey.fromBase58(PRIVATE_KEY);
 
   app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    console.log(
+      `⚡️[server]: Server is running on port ${port}. Try it at http://localhost:${port}/ip/24.48.0.1.`
+    );
   });
 });
